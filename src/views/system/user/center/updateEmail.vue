@@ -1,20 +1,20 @@
 <template>
   <div style="display: inline-block;">
-    <el-dialog :visible.sync="dialog" :close-on-click-modal="false" :before-close="cancel" :title="title" append-to-body width="475px" @close="cancel">
+    <el-dialog :visible.sync="dialog" :close-on-click-modal="false" :before-close="cancel" :title="title" append-to-body width="450px" @close="cancel">
       <el-form ref="form" :model="form" :rules="rules" size="small" label-width="88px">
         <el-form-item label="新邮箱" prop="email">
-          <el-input v-model="form.email" auto-complete="on" style="width: 200px;" />
-          <el-button :loading="codeLoading" :disabled="isDisabled" size="small" @click="sendCode">{{ buttonName }}</el-button>
+          <el-input v-model="form.email" auto-complete="on" style="width: 180px;" />
+          <el-button :loading="codeLoading" :disabled="isDisabled" size="small" style="margin-left: 20px;" @click="sendCode">{{ buttonName }}</el-button>
         </el-form-item>
         <el-form-item label="验证码" prop="code">
-          <el-input v-model="form.code" style="width: 320px;" />
+          <el-input v-model="form.code" style="width: 300px;" />
         </el-form-item>
         <el-form-item label="当前密码" prop="pass">
-          <el-input v-model="form.pass" type="password" style="width: 320px;" />
+          <el-input v-model="form.pass" type="password" style="width: 300px;" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="text" @click="cancel">取消</el-button>
+        <el-button @click="cancel">取消</el-button>
         <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
       </div>
     </el-dialog>

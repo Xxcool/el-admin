@@ -54,6 +54,16 @@
   margin: 0 auto;
 }
 
+.el-dialog__header {
+    border-bottom: 1px solid #dcdfe6;
+}
+
+.el-dialog__footer {
+    padding: 10px;
+    border-top: 1px solid #dcdfe6;
+    text-align: center;
+}
+
 // refine element ui upload
 .upload-container {
   .el-upload {
@@ -76,4 +86,9 @@
 // fix date-picker ui bug in filter-item
 .el-range-editor.el-input__inner {
   display: inline-flex !important;
+}
+
+// table
+.el-table tr:first-child th {
+    background: #ECECEC;
 }

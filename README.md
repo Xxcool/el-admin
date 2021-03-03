@@ -1,13 +1,6 @@
-# ELADMIN-WEB
+# qingjie_admin_web
 
-ELADMIN 前端源码
-
-#### 项目源码
-
-|     |   后端源码  |   前端源码  |
-|---  |--- | --- |
-|  github   |  https://github.com/elunez/eladmin   |  https://github.com/elunez/eladmin-web   |
-|  码云   |  https://gitee.com/elunez/eladmin   |  https://gitee.com/elunez/eladmin-web   |
+qingjie_admin_web 前端源码
 
 #### 开发文档
 [https://el-admin.vip](https://el-admin.vip)

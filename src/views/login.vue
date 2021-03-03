@@ -1,9 +1,10 @@
 <template>
   <div class="login" :style="'background-image:url('+ Background +');'">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
-      <h3 class="title">
-        EL-ADMIN 后台管理系统
-      </h3>
+      <img v-if="logo" :src="logo" class="logo">
+      <!-- <h3 class="title">
+        qingjie-admin 后台管理系统
+      </h3> -->
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import Logo from '@/assets/images/home-logo.png'
 import { encrypt } from '@/utils/rsaEncrypt'
 import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
@@ -51,6 +53,7 @@ export default {
   name: 'Login',
   data() {
     return {
+    	logo: Logo,
       Background: Background,
       codeUrl: '',
       cookiePass: '',
@@ -167,6 +170,11 @@ export default {
     height: 100%;
     background-size: cover;
   }
+	.logo {
+		width: 240px;
+		display: block;
+		margin: 0 auto 10px auto;
+	}
   .title {
     margin: 0 auto 30px auto;
     text-align: center;
@@ -195,7 +203,7 @@ export default {
   }
   .login-code {
     width: 33%;
-    display: inline-block;
+    // display: inline-block;
     height: 38px;
     float: right;
     img{

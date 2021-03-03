@@ -38,6 +38,11 @@
               个人中心
             </el-dropdown-item>
           </router-link>
+          <span style="display:block;" @click="$refs.pass.dialog = true">
+            <el-dropdown-item>
+              修改密码
+            </el-dropdown-item>
+          </span>
           <span style="display:block;" @click="open">
             <el-dropdown-item divided>
               退出登录
@@ -46,6 +51,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <updatePass ref="pass" />
   </div>
 </template>
 
@@ -58,6 +64,7 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 import Avatar from '@/assets/images/avatar.png'
+import updatePass from '@/views/system/user/center/updatePass'
 
 export default {
   components: {
@@ -66,7 +73,8 @@ export default {
     Screenfull,
     SizeSelect,
     Search,
-    Doc
+    Doc,
+    updatePass
   },
   data() {
     return {
@@ -98,7 +106,7 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     open() {
-      this.$confirm('确定注销并退出系统吗？', '提示', {
+      this.$confirm('确定退出系统吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
