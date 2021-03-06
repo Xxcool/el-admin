@@ -1,10 +1,11 @@
 <!--分页-->
 <template>
   <el-pagination
+    background
     :page-size.sync="page.size"
     :total="page.total"
     :current-page.sync="page.page"
-    style="margin-top: 8px;"
+    style="margin-top: 10px; text-align: right;"
     layout="total, prev, pager, next, sizes"
     @size-change="crud.sizeChangeHandler($event)"
     @current-change="crud.pageChangeHandler"

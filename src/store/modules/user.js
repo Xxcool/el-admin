@@ -47,6 +47,7 @@ const user = {
     GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
+            console.log(res, '用户信息')
           setUserInfo(res, commit)
           resolve(res)
         }).catch(error => {

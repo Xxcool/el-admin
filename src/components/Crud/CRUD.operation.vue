@@ -53,7 +53,7 @@
       <!--右侧-->
       <slot name="right" />
     </span>
-    <el-button-group class="crud-opts-right">
+    <el-button-group v-if="crud.optShow.select" class="crud-opts-right">
       <el-button
         size="mini"
         plain
@@ -258,6 +258,7 @@ export default {
     display: -webkit-flex;
     display: flex;
     align-items: center;
+    display: inline-block;
   }
   .crud-opts .crud-opts-right {
     margin-left: auto;

@@ -79,6 +79,9 @@ export default {
       }
     }
   },
+  created() {
+      console.log(this.dict)
+  },
   methods: {
     // 改变状态
     changeEnabled(data, val) {

@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
+        console.log(store.getters.roles)
         store.dispatch('GetInfo').then(() => { // 拉取user_info
           // 动态路由，拉取菜单
           loadMenus(next, to)
