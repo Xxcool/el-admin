@@ -60,34 +60,32 @@
           <crudOperation show="" :permission="permission" />
         </div>
         <!--表单渲染-->
-        <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="570px">
-          <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
+        <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="750px">
+          <el-form ref="form"  :model="form" :rules="rules" size="small" label-width="66px">
+						<el-form-item label="姓名" prop="realName">
+              <el-input v-model="form.realName" style="width: 200px;"/>
+            </el-form-item>
             <el-form-item label="用户名" prop="username">
-              <el-input v-model="form.username" />
+              <el-input v-model="form.username" style="width: 200px;"/>
+							<span class="tips">注：填写后可用于手机端登陆，格式为字母+数字，长度为6-20字符</span>
             </el-form-item>
-            <el-form-item label="电话" prop="phone">
-              <el-input v-model.number="form.phone" />
-            </el-form-item>
-            <el-form-item label="昵称" prop="nickName">
+            <!-- <el-form-item label="昵称" prop="nickName">
               <el-input v-model="form.nickName" />
-            </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="form.email" />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="部门" prop="dept.id">
               <treeselect
                 v-model="form.dept.id"
                 :options="depts"
                 :load-options="loadDepts"
-                style="width: 178px"
+                style="width: 200px;float: left;"
                 placeholder="选择部门"
               />
+							<router-link type="primary" to="/system/dept" class="tips"><el-link type="primary" :underline="false">创建部门</el-link></router-link>
             </el-form-item>
             <el-form-item label="岗位" prop="jobs">
               <el-select
-                v-model="jobDatas"
-                style="width: 178px"
-                multiple
+                v-model="jobDatas[0]"
+                style="width: 200px"
                 placeholder="请选择"
                 @remove-tag="deleteTag"
                 @change="changeJob"
@@ -99,27 +97,12 @@
                   :value="item.id"
                 />
               </el-select>
+							<router-link type="primary" to="/system/job" class="tips"><el-link type="primary" :underline="false">创建岗位</el-link></router-link>
             </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="form.gender" style="width: 178px">
-                <el-radio label="男">男</el-radio>
-                <el-radio label="女">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="状态">
-              <el-radio-group v-model="form.enabled" :disabled="form.id === user.id">
-                <el-radio
-                  v-for="item in dict.user_status"
-                  :key="item.id"
-                  :label="item.value"
-                >{{ item.label }}</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item style="margin-bottom: 0;" label="角色" prop="roles">
+						<el-form-item label="角色" prop="roles">
               <el-select
-                v-model="roleDatas"
-                style="width: 437px"
-                multiple
+                v-model="roleDatas[0]"
+                style="width: 200px"
                 placeholder="请选择"
                 @remove-tag="deleteTag"
                 @change="changeRole"
@@ -132,26 +115,67 @@
                   :value="item.id"
                 />
               </el-select>
+							<router-link type="primary" to="/system/role" class="tips"><el-link type="primary" :underline="false">创建角色</el-link></router-link>
+            </el-form-item>
+						<el-form-item label="手机号" prop="phone">
+              <el-input v-model.number="form.phone" style="width: 200px;"/>
+							<span class="tips">注：填写后可用于手机端登陆</span>
+            </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="form.email" style="width: 200px;"/>
+							<span class="tips">注：填写后可用于手机端登陆</span>
+            </el-form-item>
+            <el-form-item label="性别">
+              <el-radio-group v-model="form.gender" style="width: 200px">
+                <el-radio label="男">男</el-radio>
+                <el-radio label="女">女</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="状态" style="margin-bottom: 0">
+              <el-radio-group v-model="form.enabled" :disabled="form.id === user.id" >
+                <el-radio
+                  v-for="item in dict.user_status"
+                  :key="item.id"
+                  :label="item.value"
+                >{{ item.label }}</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button type="text" @click="crud.cancelCU">取消</el-button>
+            <el-button @click="crud.cancelCU">取消</el-button>
             <el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
           </div>
         </el-dialog>
         <!--表格渲染-->
         <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
           <el-table-column :selectable="checkboxT" type="selection" width="55" />
+          <el-table-column label="序号">
+						<template slot-scope="scope">
+							{{ scope.$index + 1 }}
+						</template>
+					</el-table-column>
+					<el-table-column :show-overflow-tooltip="true" prop="realName" label="姓名" />
           <el-table-column :show-overflow-tooltip="true" prop="username" label="用户名" />
-          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="昵称" />
-          <el-table-column prop="gender" label="性别" />
-          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
-          <el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
+          <!-- <el-table-column :show-overflow-tooltip="true" prop="nickName" label="昵称" />
+          <el-table-column prop="gender" label="性别" /> -->
+					<el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
             <template slot-scope="scope">
-              <div>{{ scope.row.dept.name }}</div>
+              <div>{{ scope.row.dept ? scope.row.dept.name : '' }}</div>
             </template>
           </el-table-column>
+					<el-table-column :show-overflow-tooltip="true" prop="jobs" label="岗位">
+            <template slot-scope="scope">
+              <div>{{ scope.row.jobs.length > 0 ? scope.row.jobs[0].name : '' }}</div>
+            </template>
+          </el-table-column>
+					<el-table-column :show-overflow-tooltip="true" prop="roles" label="角色">
+            <template slot-scope="scope">
+              <div>{{ scope.row.roles.length > 0 ? scope.row.roles[0].name : '' }}</div>
+            </template>
+          </el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="手机号" />
+          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
+          
           <el-table-column label="状态" align="center" prop="enabled">
             <template slot-scope="scope">
               <el-switch
@@ -167,7 +191,7 @@
           <el-table-column
             v-if="checkPer(['admin','user:edit','user:del'])"
             label="操作"
-            width="115"
+            width="150"
             align="center"
             fixed="right"
           >
@@ -205,7 +229,7 @@ import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { LOAD_CHILDREN_OPTIONS } from '@riophae/vue-treeselect'
 let userRoles = []
 let userJobs = []
-const defaultForm = { id: null, username: null, nickName: null, gender: '男', email: null, enabled: 'false', roles: [], jobs: [], dept: { id: null }, phone: null }
+const defaultForm = { id: null, realName: null, username: null, nickName: null, gender: '男', email: null, enabled: 'true', roles: [], jobs: [], dept: { id: null }, phone: null }
 export default {
   name: 'User',
   components: { Treeselect, crudOperation, rrOperation, udOperation, pagination, DateRangePicker },
@@ -229,7 +253,7 @@ export default {
     return {
       height: document.documentElement.clientHeight - 180 + 'px;',
       deptName: '', depts: [], deptDatas: [], jobs: [], level: 3, roles: [],
-      jobDatas: [], roleDatas: [], // 多选时使用
+      jobDatas: [], roleDatas: [], // 多选时使用数组
       defaultProps: { children: 'children', label: 'name', isLeaf: 'leaf' },
       permission: {
         add: ['admin', 'user:add'],
@@ -241,21 +265,23 @@ export default {
         { key: 'false', display_name: '锁定' }
       ],
       rules: {
+				realName: [
+          { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
-        nickName: [
-          { required: true, message: '请输入用户昵称', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+        roles: [
+          { required: false, message: '请选择角色', trigger: 'change' },
         ],
-        email: [
-          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-          { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, trigger: 'blur', validator: validPhone }
-        ]
+        // email: [
+        //   { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        //   { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+        // ],
+        // phone: [
+        //   { required: true, trigger: 'blur', validator: validPhone }
+				// ]
       }
     }
   },
@@ -275,18 +301,24 @@ export default {
   },
   methods: {
     changeRole(value) {
-      userRoles = []
-      value.forEach(function(data, index) {
-        const role = { id: data }
-        userRoles.push(role)
-      })
+			userRoles = []
+			const role = { id: value }
+			userRoles.push(role)
+      // value.forEach(function(data, index) {
+      //   const role = { id: data }
+      //   userRoles.push(role)
+      // })
+      
     },
     changeJob(value) {
-      userJobs = []
-      value.forEach(function(data, index) {
-        const job = { id: data }
-        userJobs.push(job)
-      })
+				
+			userJobs = []
+			const job = { id: value }
+      userJobs.push(job)
+      // value.forEach(function(data, index) {
+      //   const job = { id: data }
+      //   userJobs.push(job)
+      // })
     },
     deleteTag(value) {
       userRoles.forEach(function(data, index) {
@@ -297,61 +329,83 @@ export default {
     },
     // 新增与编辑前做的操作
     [CRUD.HOOK.afterToCU](crud, form) {
-      this.getRoles()
-      if (form.id == null) {
-        this.getDepts()
-      } else {
-        this.getSupDepts(form.dept.id)
-      }
+			this.getRoles()
+      // if (form.id == null) {
+      //   this.getDepts()
+      // } else {
+      //   this.getSupDepts(form.dept.id)
+			// }
+			if(form.dept.id) {
+				this.getSupDepts(form.dept.id)
+			}else {
+				this.getDepts()
+			}
       this.getRoleLevel()
       this.getJobs()
       form.enabled = form.enabled.toString()
     },
     // 新增前将多选的值设置为空
     [CRUD.HOOK.beforeToAdd]() {
-      this.jobDatas = []
+        this.jobDatas = []
+      // this.jobDatas = null
       this.roleDatas = []
+      // this.roleDatas = null
     },
     // 初始化编辑时候的角色与岗位
     [CRUD.HOOK.beforeToEdit](crud, form) {
       this.getJobs(this.form.dept.id)
       this.jobDatas = []
       this.roleDatas = []
+      // this.jobDatas = null
+      // this.roleDatas = null
       userRoles = []
       userJobs = []
+      // userRoles = null
+      // userJobs = null
       const _this = this
       form.roles.forEach(function(role, index) {
         _this.roleDatas.push(role.id)
+        // _this.roleDatas = role.id
         const rol = { id: role.id }
         userRoles.push(rol)
+        // userRoles = rol
       })
       form.jobs.forEach(function(job, index) {
+          // _this.jobDatas = job.id
         _this.jobDatas.push(job.id)
         const data = { id: job.id }
         userJobs.push(data)
+        // userJobs = data
       })
     },
     // 提交前做的操作
     [CRUD.HOOK.afterValidateCU](crud) {
-      if (!crud.form.dept.id) {
-        this.$message({
-          message: '部门不能为空',
-          type: 'warning'
-        })
-        return false
-      } else if (this.jobDatas.length === 0) {
-        this.$message({
-          message: '岗位不能为空',
-          type: 'warning'
-        })
-        return false
-      } else if (this.roleDatas.length === 0) {
+      // if (!crud.form.dept.id) {
+      //   this.$message({
+      //     message: '部门不能为空',
+      //     type: 'warning'
+      //   })
+      //   return false
+      // } else if (this.jobDatas.length === 0) {
+      //   this.$message({
+      //     message: '岗位不能为空',
+      //     type: 'warning'
+      //   })
+      //   return false
+      // } else if (this.roleDatas.length === 0) {
+      //   this.$message({
+      //     message: '角色不能为空',
+      //     type: 'warning'
+      //   })
+      //   return false
+			// }
+			if (this.roleDatas.length === 0) {
         this.$message({
           message: '角色不能为空',
           type: 'warning'
         })
-        return false
-      }
+				return false
+			}
       crud.form.roles = userRoles
       crud.form.jobs = userJobs
       return true
@@ -475,4 +529,7 @@ export default {
     height: 30px;
     line-height: 30px;
   }
+	.tips {
+		margin-left: 10px;
+	}
 </style>

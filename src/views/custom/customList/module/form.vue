@@ -33,7 +33,7 @@
           style="width: 200px;"
         />
         <span class="tips"
-          >注：填写后可用于手机端登陆，格式为字母加数字，长度为6-20字符</span
+          >注：填写后可用于手机端登陆，格式为字母+数字，长度为6-20字符</span
         >
       </el-form-item>
       <el-form-item label="客户类型:" prop="userTypeId">
@@ -52,7 +52,7 @@
             :value="item.userTypeId"
           />
         </el-select>
-        <router-link to="../../customType/index.vue" class="tips">创建类型</router-link>
+        <router-link type="primary" to="/custom/customType" class="tips"><el-link type="primary" :underline="false">创建类型</el-link></router-link>
       </el-form-item>
       <el-form-item label="手机号:" prop="phone">
         <el-input
@@ -73,9 +73,9 @@
         <span class="tips">填写后可用于手机端登陆</span>
       </el-form-item>
 
-      <el-form-item label="售后人员:" prop="postSale">
+      <el-form-item label="售后人员:" prop="aftermarketId">
         <el-select
-          v-model="form.postSale"
+          v-model="form.aftermarketId"
           clearable
           size="small"
           placeholder="请选择"
@@ -84,9 +84,9 @@
         >
           <el-option
             v-for="item in postSaleOption"
-            :key="item.key"
-            :label="item.name"
-            :value="item.key"
+            :key="item.aftermarketId"
+            :label="item.userName + ' / ' + item.jobName"
+            :value="item.aftermarketId"
           />
         </el-select>
       </el-form-item>
@@ -103,7 +103,7 @@
           <el-option
             v-for="item in machineOption"
             :key="item.key"
-            :label="item.name"
+            :label="item.value"
             :value="item.key"
           />
         </el-select>
@@ -156,6 +156,7 @@
 
 <script>
 import { form } from "@crud/crud";
+import crudCustom from "@/api/custom/custom";
 import customType from "@/api/custom/type";
 
 const defaultForm = {
@@ -164,18 +165,11 @@ const defaultForm = {
   login: null,
   userTypeId: null,
   phone: null,
-  email: null
+  email: null,
+  aftermarketId: null
 };
 export default {
   mixins: [form(defaultForm)],
-  props: {
-    customTypeOptions: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    }
-  },
   data() {
     var checkLogin = (rule, value, callback) => {
       let loginReg = /^[0-9a-zA-Z]*$/;
@@ -204,7 +198,7 @@ export default {
       }
     };
     return {
-      //   customTypeOptions: [],
+      customTypeOptions: [],
       postSaleOption: [],
       machineOption: [],
       rules: {
@@ -226,20 +220,30 @@ export default {
     };
   },
   created() {
-    // this.getAllType();
-    this.form.userTypeId = this.customTypeOptions[0].value;
+    this.getAllType();
+    this.getPostSaleData();
   },
   methods: {
-    // getAllType() {
-    //   customType
-    //     .getAll()
-    //     .then(res => {
-    //       this.customTypeOptions = res.content;
-    //     })
-    //     .catch(err => {
-    //       console.log(err.response.data.message);
-    //     });
-    // }
+    getAllType() {
+      customType
+        .getAll()
+        .then(res => {
+          this.customTypeOptions = res.content;
+        })
+        .catch(err => {
+          console.log(err.response.data.message);
+        });
+    },
+    getPostSaleData() {
+      crudCustom
+        .getPostSaleData()
+        .then(res => {
+          this.postSaleOption = res;
+        })
+        .catch(err => {
+          console.log(err.response.data.message);
+        });
+    }
   }
 };
 </script>

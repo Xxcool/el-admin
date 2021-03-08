@@ -58,7 +58,7 @@
       />
       <el-table-column
         :show-overflow-tooltip="true"
-        prop="customClassify"
+        prop="userTypeName"
         label="客户类型"
       />
       <el-table-column
@@ -98,7 +98,7 @@
         label="操作"
         align="center"
         fixed="right"
-        width="200"
+        width="220"
       >
         <template slot-scope="scope">
           <udOperation
@@ -107,9 +107,8 @@
             style="dispaly: inline-block"
           />
           <el-button
-            size="mini"
-            style="margin-right: 3px;"
-            type="text"
+            size="mini" 
+            type="success"
             @click="setPassword(scope.row.userId)"
             >设置密码</el-button
           >
@@ -126,7 +125,6 @@
         :dialogVisible="dialogVisible"
         @close="dialogVisible = false"
         :userId="userId"
-        :customTypeOptions="customTypeOptions"
       />
     </keep-alive>
   </div>

@@ -7,7 +7,7 @@
         <el-button size="mini" type="text" @click="doCancel">取消</el-button>
         <el-button :loading="crud.dataStatus[crud.getDataId(data)].delete === 2" type="primary" size="mini" @click="crud.doDelete(data)">确定</el-button>
       </div>
-      <el-button v-if="crud.operationShow.del" slot="reference" :disabled="disabledDle" type="danger" icon="el-icon-delete" size="mini" @click="toDelete" />
+      <el-button v-if="crud.operationShow.del" slot="reference" :disabled="disabledDle" type="danger" style="margin: 0 5px;" icon="el-icon-delete" size="mini" @click="toDelete" />
     </el-popover>
   </div>
 </template>
