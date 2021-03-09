@@ -208,16 +208,16 @@ export default {
       return true
     },
     // 触发单选
-    handleCurrentChange(val) {
-      if (val) {
+    handleCurrentChange(row) {
+      if (row) {
         const _this = this
         // 清空菜单的选中
         this.$refs.menu.setCheckedKeys([])
         // 保存当前的角色id
-        this.currentId = val.id
+        this.currentId = row.id
         // 初始化默认选中的key
         this.menuIds = []
-        val.menus.forEach(function(data) {
+        row.menus.forEach(function(data) {
           _this.menuIds.push(data.id)
         })
         this.showButton = true

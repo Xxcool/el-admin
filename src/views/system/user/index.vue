@@ -99,7 +99,7 @@
               </el-select>
 							<router-link type="primary" to="/system/job" class="tips"><el-link type="primary" :underline="false">创建岗位</el-link></router-link>
             </el-form-item>
-						<el-form-item label="角色" prop="roles">
+						<el-form-item label="角色" prop="roles" class="role">
               <el-select
                 v-model="roleDatas[0]"
                 style="width: 200px"
@@ -271,9 +271,6 @@ export default {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-        ],
-        roles: [
-          { required: false, message: '请选择角色', trigger: 'change' },
         ],
         // email: [
         //   { required: true, message: '请输入邮箱地址', trigger: 'blur' },
@@ -531,5 +528,10 @@ export default {
   }
 	.tips {
 		margin-left: 10px;
+	}
+	.role ::v-deep .el-form-item__label:before {
+		content: "*";
+    color: #ff4949;
+    margin-right: 4px;
 	}
 </style>
