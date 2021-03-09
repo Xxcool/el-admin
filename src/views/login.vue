@@ -36,7 +36,7 @@
     <!--  底部  -->
     <div v-if="$store.state.settings.showFooter" id="el-login-footer">
       <span v-html="$store.state.settings.footerTxt" />
-      <span> ⋅ </span>
+      <!-- <span> ⋅ </span> -->
       <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>
     </div>
   </div>
@@ -171,7 +171,7 @@ export default {
     background-size: cover;
   }
 	.logo {
-		width: 240px;
+		width: 200px;
 		display: block;
 		margin: 0 auto 10px auto;
 	}

@@ -14,6 +14,7 @@
             @input="getDeptDatas"
           />
         </div>
+				<label class="company" @click="getAllData()">擎朗智能</label>
         <el-tree
           :data="deptDatas"
           :load="getDeptDatas"
@@ -301,7 +302,7 @@ export default {
     ])
   },
   created() {
-    this.crud.msg.add = '新增成功，默认密码：123456'
+    this.crud.msg.add = '新增成功，默认密码：q123456'
   },
   mounted: function() {
     const that = this
@@ -492,7 +493,11 @@ export default {
         this.query.deptId = data.id
       }
       this.crud.toQuery()
-    },
+		},
+		getAllData() {
+			this.query.deptId = null
+			this.crud.toQuery()
+		},
     // 改变状态
     changeEnabled(data, val) {
       this.$confirm('此操作将 "' + this.dict.label.user_status[val] + '" ' + data.username + ', 是否继续？', '提示', {
@@ -541,10 +546,16 @@ export default {
   }
 	.tips {
 		margin-left: 10px;
+		font-size: 12px;
+  	color: #999;
 	}
 	.role ::v-deep .el-form-item__label:before {
 		content: "*";
     color: #ff4949;
     margin-right: 4px;
+	}
+	.company {
+		color: #606266;
+		cursor: pointer;
 	}
 </style>

@@ -398,7 +398,7 @@ function CRUD(options) {
             crud.params[item] = undefined;
         });
       return {
-        page: crud.page.page,
+        page: crud.page.page - 1,
         size: crud.page.size,
         sort: crud.sort,
         ...crud.query,
@@ -552,7 +552,7 @@ function CRUD(options) {
       crud.vms[0].vm.$notify({
         title,
         type,
-        duration: 2500
+        duration: 0
       });
     },
     updateProp(name, value) {

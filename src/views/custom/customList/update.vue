@@ -215,6 +215,8 @@ export default {
 }
 .tips {
   margin-left: 20px;
+  font-size: 12px;
+  color: #999;
 }
 .robot {
   margin: 20px 0 20px 50px;

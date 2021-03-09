@@ -90,7 +90,7 @@
           />
         </el-select>
       </el-form-item>
-      <label class="leftBorder">设备信息</label>
+      <!-- <label class="leftBorder">设备信息</label>
       <div style="margin: 20px 0">
         <el-select
           v-model="form.machine"
@@ -136,7 +136,7 @@
             <udOperation :data="scope.row" :permission="permission" />
           </template>
         </el-table-column>
-      </el-table>
+      </el-table> -->
     </el-form>
 
     <div slot="footer" class="dialog-footer">
@@ -251,5 +251,7 @@ export default {
 <style lang="scss" scope>
 .tips {
   margin-left: 10px;
+  font-size: 12px;
+  color: #999;
 }
 </style>

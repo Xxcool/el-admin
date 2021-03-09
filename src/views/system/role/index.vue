@@ -16,7 +16,7 @@
         <el-form-item label="角色名称" prop="name">
           <el-input v-model="form.name" style="width: 380px;" />
         </el-form-item>
-        <el-form-item label="角色级别" prop="level">
+        <!-- <el-form-item label="角色级别" prop="level">
           <el-input-number v-model.number="form.level" :min="1" controls-position="right" style="width: 145px;" />
         </el-form-item>
         <el-form-item label="数据范围" prop="dataScope">
@@ -28,7 +28,7 @@
               :value="item"
             />
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item v-if="form.dataScope === '自定义'" label="数据权限" prop="depts">
           <treeselect
             v-model="deptDatas"
@@ -56,13 +56,13 @@
             <span class="role-span">角色列表</span>
           </div>
           <el-table ref="table" v-loading="crud.loading" highlight-current-row style="width: 100%;" :data="crud.data" @selection-change="crud.selectionChangeHandler" @current-change="handleCurrentChange">
-            <el-table-column :selectable="checkboxT" type="selection" width="55" />
+            <!-- <el-table-column :selectable="checkboxT" type="selection" width="55" /> -->
             <el-table-column prop="name" label="名称" />
-            <el-table-column prop="dataScope" label="数据权限" />
-            <el-table-column prop="level" label="角色级别" />
+            <!-- <el-table-column prop="dataScope" label="数据权限" />
+            <el-table-column prop="level" label="角色级别" /> -->
             <el-table-column :show-overflow-tooltip="true" prop="description" label="描述" />
             <el-table-column :show-overflow-tooltip="true" width="135px" prop="createTime" label="创建日期" />
-            <el-table-column v-if="checkPer(['admin','roles:edit','roles:del'])" label="操作" width="130px" align="center" fixed="right">
+            <el-table-column v-if="checkPer(['admin','roles:edit','roles:del'])" label="操作" width="150px" align="center" fixed="right">
               <template slot-scope="scope">
                 <udOperation
                   v-if="scope.row.level >= level"
@@ -157,6 +157,10 @@ export default {
     }
   },
   created() {
+		this.crud.optShow = {
+      add: true,
+      reset: true
+    };
     crudRoles.getLevel().then(data => {
       this.level = data.level
     })
@@ -354,4 +358,13 @@ export default {
     border: 0;
     padding: 0;
   }
+	::v-deep .el-table__body tr.current-row>td {
+    background-color: #C4E5FF;
+	}
+	// ::v-deep .el-table tr:first-child th {
+	// 	padding-left: 10px;
+	// }
+	::v-deep .el-table .cell {
+		padding-left: 20px;
+	}
 </style>
