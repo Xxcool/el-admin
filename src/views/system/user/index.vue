@@ -154,27 +154,40 @@
 							{{ scope.$index + 1 }}
 						</template>
 					</el-table-column>
-					<el-table-column :show-overflow-tooltip="true" prop="realName" label="姓名" />
+
+					<el-table-column :show-overflow-tooltip="true" prop="realName" label="姓名">
+						<template slot-scope="scope">
+							{{ scope.row.realName || '-' }}
+						</template>
+					</el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="username" label="用户名" />
           <!-- <el-table-column :show-overflow-tooltip="true" prop="nickName" label="昵称" />
           <el-table-column prop="gender" label="性别" /> -->
 					<el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
             <template slot-scope="scope">
-              <div>{{ scope.row.dept ? scope.row.dept.name : '' }}</div>
+              <div>{{ scope.row.dept ? scope.row.dept.name : '-' }}</div>
             </template>
           </el-table-column>
 					<el-table-column :show-overflow-tooltip="true" prop="jobs" label="岗位">
             <template slot-scope="scope">
-              <div>{{ scope.row.jobs.length > 0 ? scope.row.jobs[0].name : '' }}</div>
+              <div>{{ scope.row.jobs.length > 0 ? scope.row.jobs[0].name : '-' }}</div>
             </template>
           </el-table-column>
 					<el-table-column :show-overflow-tooltip="true" prop="roles" label="角色">
             <template slot-scope="scope">
-              <div>{{ scope.row.roles.length > 0 ? scope.row.roles[0].name : '' }}</div>
+              <div>{{ scope.row.roles.length > 0 ? scope.row.roles[0].name : '-' }}</div>
             </template>
           </el-table-column>
-          <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="手机号" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
+					<el-table-column :show-overflow-tooltip="true" prop="phone" label="手机号">
+						<template slot-scope="scope">
+							{{ scope.row.phone || '-' }}
+						</template>
+					</el-table-column>
+					<el-table-column :show-overflow-tooltip="true" prop="email" label="邮箱">
+						<template slot-scope="scope">
+							{{ scope.row.email || '-' }}
+						</template>
+					</el-table-column>
           
           <el-table-column label="状态" align="center" prop="enabled">
             <template slot-scope="scope">

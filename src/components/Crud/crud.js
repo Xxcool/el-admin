@@ -398,7 +398,7 @@ function CRUD(options) {
             crud.params[item] = undefined;
         });
       return {
-        page: crud.page.page - 1,
+        page: crud.page.page,
         size: crud.page.size,
         sort: crud.sort,
         ...crud.query,

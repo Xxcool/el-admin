@@ -85,7 +85,12 @@
         prop="typeName"
         label="类型名称"
       />
-      <el-table-column :show-overflow-tooltip="true" prop="description" label="说明" />
+      
+			<el-table-column :show-overflow-tooltip="true" prop="description" label="说明">
+        <template slot-scope="scope">
+          {{ scope.row.description || "-" }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" fixed="right">
         <template slot-scope="scope">
           <udOperation :data="scope.row" :permission="permission" />

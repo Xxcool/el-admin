@@ -46,36 +46,41 @@
     >
       <el-table-column :selectable="checkboxT" type="selection" width="55" />
       <el-table-column :show-overflow-tooltip="true" prop="userId" label="ID" />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        prop="userName"
-        label="客户名称"
-      />
+			<el-table-column :show-overflow-tooltip="true" prop="userName" label="客户名称">
+        <template slot-scope="scope">
+          {{ scope.row.userName || "-" }}
+        </template>
+      </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
         prop="login"
         label="用户名/账号"
       />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        prop="userTypeName"
-        label="客户类型"
-      />
+			<el-table-column :show-overflow-tooltip="true" prop="userTypeName" label="客户类型">
+        <template slot-scope="scope">
+          {{ scope.row.userTypeName || "-" }}
+        </template>
+      </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
         prop="phone"
         label="手机号"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        prop="email"
-        label="邮箱"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        prop="aftermarketName"
-        label="售后人员"
-      />
+      >
+        <template slot-scope="scope">
+          {{ scope.row.phone || "-" }}
+        </template>
+      </el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="email" label="邮箱">
+        <template slot-scope="scope">
+          {{ scope.row.email || "-" }}
+        </template>
+      </el-table-column>
+
+			<el-table-column :show-overflow-tooltip="true" prop="aftermarketName" label="售后人员">
+        <template slot-scope="scope">
+          {{ scope.row.aftermarketName || "-" }}
+        </template>
+      </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
         prop="createTime"
@@ -107,7 +112,7 @@
             style="dispaly: inline-block"
           />
           <el-button
-            size="mini" 
+            size="mini"
             type="success"
             @click="setPassword(scope.row.userId)"
             >设置密码</el-button
@@ -196,9 +201,11 @@ export default {
   },
   methods: {
     getAllType() {
-      customType.getAll().then(res => {
+      customType
+        .getAll()
+        .then(res => {
           console.log(res);
-          this.customTypeOptions = res.content
+          this.customTypeOptions = res.content;
         })
         .catch(err => {
           console.log(err.response.data.message);
