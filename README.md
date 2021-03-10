@@ -22,6 +22,9 @@ npm install
 # 启动服务 localhost:8013
 npm run dev
 
+# 构建测试环境
+npm run build:test
+
 # 构建生产环境
 npm run build:prod
 ```
