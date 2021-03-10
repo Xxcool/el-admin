@@ -77,6 +77,7 @@
         <el-select
           v-model="form.aftermarketId || user.id"
           clearable
+          filterable
           size="small"
           placeholder="请选择"
           class="filter-item"
