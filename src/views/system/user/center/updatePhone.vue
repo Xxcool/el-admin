@@ -3,7 +3,7 @@
     <el-dialog :visible.sync="dialog" :close-on-click-modal="false" :before-close="cancel" :title="title" append-to-body width="450px" @close="cancel">
       <el-form ref="form" :model="form" :rules="rules" size="small" label-width="88px">
         <el-form-item label="手机号" prop="phone">
-          <el-input v-model="form.phone" style="width: 300px;" />
+          <el-input v-model="form.phone" style="width: 200px;" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

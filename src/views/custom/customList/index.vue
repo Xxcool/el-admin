@@ -170,9 +170,9 @@ export default {
     return {
       customTypeOptions: [],
       permission: {
-        add: ["admin", "job:add"],
-        edit: ["admin", "job:edit"],
-        del: ["admin", "job:del"]
+        add: ["admin", "appUser:add"],
+        edit: ["admin", "appUser:edit"],
+        del: ["admin", "appUser:del"]
       },
       form: {},
       rules: {

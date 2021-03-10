@@ -134,9 +134,9 @@ export default {
     return {
       customClassifyOptions: [],
       permission: {
-        add: ["admin", "custom:add"],
-        edit: ["admin", "custom:edit"],
-        del: ["admin", "custom:del"]
+        add: ["admin", "appUserType:add"],
+        edit: ["admin", "appUserType:edit"],
+        del: ["admin", "appUserType:del"]
       },
       rules: {
         typeName: [

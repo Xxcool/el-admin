@@ -131,7 +131,7 @@ function CRUD(options) {
       crud.notify(crud.msg.submit, CRUD.NOTIFICATION_TYPE.SUCCESS);
     },
     addSuccessNotify() {
-      crud.notify(crud.msg.add, CRUD.NOTIFICATION_TYPE.SUCCESS);
+      crud.notify(crud.msg.add, CRUD.NOTIFICATION_TYPE.SUCCESS, 0);
     },
     editSuccessNotify() {
       crud.notify(crud.msg.edit, CRUD.NOTIFICATION_TYPE.SUCCESS);
@@ -548,11 +548,11 @@ function CRUD(options) {
     findVM(type) {
       return crud.vms.find(vm => vm && vm.type === type).vm;
     },
-    notify(title, type = CRUD.NOTIFICATION_TYPE.INFO) {
+    notify(title, type = CRUD.NOTIFICATION_TYPE.INFO, time) {
       crud.vms[0].vm.$notify({
         title,
         type,
-        duration: 0
+        duration: time == 0 && title.indexOf("q123456") != -1 ? time : 2500
       });
     },
     updateProp(name, value) {

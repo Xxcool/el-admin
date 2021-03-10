@@ -75,7 +75,7 @@
 
       <el-form-item label="售后人员:" prop="aftermarketId">
         <el-select
-          v-model="form.aftermarketId"
+          v-model="form.aftermarketId || user.id"
           clearable
           size="small"
           placeholder="请选择"
@@ -85,7 +85,7 @@
           <el-option
             v-for="item in postSaleOption"
             :key="item.aftermarketId"
-            :label="item.userName + ' / ' + item.jobName"
+            :label="(item.realName ? item.realName : '-') + ' / ' + (item.jobName ? item.jobName : '-')"
             :value="item.aftermarketId"
           />
         </el-select>
@@ -158,6 +158,7 @@
 import { form } from "@crud/crud";
 import crudCustom from "@/api/custom/custom";
 import customType from "@/api/custom/type";
+import { mapGetters } from 'vuex'
 
 const defaultForm = {
   userId: null,
@@ -218,6 +219,11 @@ export default {
         email: [{ validator: checkEmail, trigger: "blur" }]
       }
     };
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   },
   created() {
     this.getAllType();
