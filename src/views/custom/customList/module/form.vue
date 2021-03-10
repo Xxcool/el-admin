@@ -216,7 +216,8 @@ export default {
           { validator: checkLogin, trigger: "blur" }
         ],
         phone: [{ validator: checkphone, trigger: "blur" }],
-        email: [{ validator: checkEmail, trigger: "blur" }]
+        email: [{ validator: checkEmail, trigger: "blur" }],
+        userTypeId: [{ required: true, message: "请选择客户类型", trigger: "change" }],
       }
     };
   },
@@ -224,6 +225,12 @@ export default {
     ...mapGetters([
       'user'
     ])
+  },
+  watch: {
+    'crud.status.cu'(newVal, oldVal) {
+        console.log(newVal, oldVal )
+        this.form.aftermarketId = this.user.id
+    }  
   },
   created() {
     this.getAllType();

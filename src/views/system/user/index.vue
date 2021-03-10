@@ -78,7 +78,7 @@
                 v-model="form.dept.id"
                 :options="depts"
                 :load-options="loadDepts"
-                style="width: 200px;float: left;"
+                style="width: 200px;display: inline-block;vertical-align: middle;"
                 placeholder="选择部门"
               />
 							<router-link type="primary" to="/system/dept" class="tips"><el-link type="primary" :underline="false">创建部门</el-link></router-link>
