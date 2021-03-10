@@ -87,6 +87,7 @@
               </el-table>
               <!--分页组件-->
               <el-pagination
+              background
                 :total="total"
                 :current-page="page + 1"
                 style="margin-top: 8px;"
