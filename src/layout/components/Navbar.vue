@@ -30,12 +30,12 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <span style="display:block;">
-            <el-dropdown-item>
+            <el-dropdown-item style="cursor: default;">
               岗位：{{user.jobs.length > 0 ? user.jobs[0].name : '-'}}
             </el-dropdown-item>
           </span>
           <span style="display:block;">
-            <el-dropdown-item>
+            <el-dropdown-item style="cursor: default;">
               角色：{{user.roles[0].name}}
             </el-dropdown-item>
           </span>
