@@ -72,6 +72,8 @@
                   v-if="scope.row.level >= level"
                   :data="scope.row"
                   :permission="permission"
+                  :disabled-dle="scope.row.name == '超级管理员'"
+                :disabled-edit="scope.row.name == '超级管理员'"
                 />
               </template>
             </el-table-column>
@@ -130,6 +132,7 @@ import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { LOAD_CHILDREN_OPTIONS } from '@riophae/vue-treeselect'
 import DateRangePicker from '@/components/DateRangePicker'
+import { mapGetters } from 'vuex'
 
 const defaultForm = { id: null, name: null, depts: [], description: null, dataScope: '全部', level: 3 }
 export default {
@@ -159,6 +162,11 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   },
   created() {
 		this.crud.optShow = {
