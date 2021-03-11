@@ -194,7 +194,7 @@
             <template slot-scope="scope">
               <el-switch
                 v-model="scope.row.enabled"
-                :disabled="user.id === scope.row.id"
+                :disabled="user.id === scope.row.id || scope.row.username == 'admin'"
                 active-color="#409EFF"
                 inactive-color="#F56C6C"
                 @change="changeEnabled(scope.row, scope.row.enabled)"
@@ -213,7 +213,8 @@
               <udOperation
                 :data="scope.row"
                 :permission="permission"
-                :disabled-dle="scope.row.id === user.id"
+                :disabled-dle="scope.row.id === user.id || scope.row.username == 'admin'"
+                :disabled-edit="scope.row.id === user.id || scope.row.username == 'admin'"
               />
             </template>
           </el-table-column>
@@ -316,6 +317,7 @@ export default {
   },
   created() {
     this.crud.msg.add = '新增成功，默认密码：q123456'
+    console.log(this.user, '2')
   },
   mounted: function() {
     const that = this
