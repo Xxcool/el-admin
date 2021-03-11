@@ -86,15 +86,13 @@
         prop="createTime"
         label="创建日期"
       />
-      <el-table-column label="状态" align="center" prop="state">
+      <el-table-column label="状态" align="center" prop="enabled">
         <template slot-scope="scope">
           <el-switch
-            v-model="scope.row.state"
+            v-model="scope.row.enabled"
             active-color="#409EFF"
             inactive-color="#F56C6C"
-            active-value="1"
-            inactive-value="0"
-            @change="changeEnabled(scope.row, scope.row.state)"
+            @change="changeEnabled(scope.row, scope.row.enabled)"
           />
         </template>
       </el-table-column>
@@ -115,6 +113,7 @@
             size="mini"
             type="success"
             @click="setPassword(scope.row.userId)"
+						v-permission="permission.updatePassword"
             >设置密码</el-button
           >
         </template>
@@ -125,7 +124,7 @@
 
     <!--表单渲染-->
     <eForm />
-    <keep-alive>
+    
       <pwdForm
         :dialogVisible="dialogVisible"
         @close="dialogVisible = false"
@@ -172,7 +171,8 @@ export default {
       permission: {
         add: ["admin", "appUser:add"],
         edit: ["admin", "appUser:edit"],
-        del: ["admin", "appUser:del"]
+        del: ["admin", "appUser:del"],
+				updatePassword: ["admin", "appUser:updatePassword"],
       },
       form: {},
       rules: {
@@ -186,16 +186,7 @@ export default {
     ...mapGetters(["user"])
   },
   created() {
-    this.crud.optShow = {
-      add: true,
-      del: true,
-      reset: true
-    };
-    this.crud.operationShow = {
-      add: true,
-      edit: true,
-      del: true
-    };
+    
     console.log(this.dict);
     this.getAllType();
   },
@@ -212,39 +203,25 @@ export default {
         });
     },
     // 改变状态
-    changeEnabled(data, val) {
-      console.log(data);
-      this.$confirm(
-        '此操作将 "' +
-          this.dict.label.custom_status[val] +
-          '" ' +
-          (data.name ? data.name : "") +
-          "客户, 是否继续？",
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
-      )
-        .then(() => {
-          crudCustom
-            .edit(data)
-            .then(() => {
-              this.crud.notify(
-                this.dict.label.custom_status[val] + "成功",
-                "success"
-              );
-            })
-            .catch(err => {
-              data.state = !data.state;
-              console.log(err.data.message);
-            });
+		changeEnabled(data, val) {
+			console.log(data, data.login, '22')
+      this.$confirm('此操作将 "' + this.dict.label.custom_status[val] + '" ' + data.login + ', 是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // eslint-disable-next-line no-undef
+        crudJob.edit(data).then(() => {
+          // eslint-disable-next-line no-undef
+          this.crud.notify(this.dict.label.custom_status[val] + '成功', 'success')
+        }).catch(err => {
+          data.enabled = !data.enabled
+          console.log(err.data.message)
         })
-        .catch(() => {
-          data.state = !data.state;
-        });
-    },
+      }).catch(() => {
+        data.enabled = !data.enabled
+      })
+		},
     checkboxT(row, rowIndex) {
       return row.id !== this.user.id;
     },

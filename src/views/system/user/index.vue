@@ -119,7 +119,7 @@
 							<router-link type="primary" to="/system/role" class="tips"><el-link type="primary" :underline="false">创建角色</el-link></router-link>
             </el-form-item>
 						<el-form-item label="手机号" prop="phone">
-              <el-input v-model.number="form.phone" style="width: 200px;"/>
+              <el-input v-model.number="form.phone" style="width: 200px;" maxlength="11"/>
 							<span class="tips">注：填写后可用于手机端登陆</span>
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
@@ -255,15 +255,32 @@ export default {
   dicts: ['user_status'],
   data() {
     // 自定义验证
-    const validPhone = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入电话号码'))
-      } else if (!isvalidPhone(value)) {
-        callback(new Error('请输入正确的11位手机号码'))
+    var checkLogin = (rule, value, callback) => {
+      let loginReg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/;
+      if (value == "") {
+        callback(new Error("请输入用户名"));
+      } else if (!loginReg.test(value)) {
+        callback(new Error("请输入正确的用户名"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
+	var checkphone = (rule, value, callback) => {
+      let phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;
+      if (!phoneReg.test(value) && value) {
+        callback(new Error("请输入正确的手机号"));
+      } else {
+        callback();
+      }
+    };
+    var checkEmail = (rule, value, callback) => {
+      const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+      if (!mailReg.test(value) && value) {
+        callback(new Error("请输入正确的邮箱"));
+      } else {
+        callback();
+      }
+    };
     return {
       height: document.documentElement.clientHeight - 180 + 'px;',
       deptName: '', depts: [], deptDatas: [], jobs: [], level: 3, roles: [],
@@ -272,27 +289,23 @@ export default {
       permission: {
         add: ['admin', 'user:add'],
         edit: ['admin', 'user:edit'],
-        del: ['admin', 'user:del']
+        del: ['admin', 'user:del'],
       },
       enabledTypeOptions: [
         { key: 'true', display_name: '激活' },
         { key: 'false', display_name: '锁定' }
       ],
       rules: {
-				realName: [
+		realName: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+          { min: 2, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+          { validator: checkLogin, trigger: "blur" }
         ],
-        // email: [
-        //   { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-        //   { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
-        // ],
-        // phone: [
-        //   { required: true, trigger: 'blur', validator: validPhone }
-				// ]
+        phone: [{ validator: checkphone, trigger: "blur" }],
+        email: [{ validator: checkEmail, trigger: "blur" }],
       }
     }
   },

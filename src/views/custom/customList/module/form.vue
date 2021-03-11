@@ -39,7 +39,6 @@
       <el-form-item label="客户类型:" prop="userTypeId">
         <el-select
           v-model="form.userTypeId"
-          clearable
           size="small"
           placeholder="请选择"
           class="filter-item"
@@ -59,6 +58,7 @@
           v-model="form.phone"
           size="small"
           clearable
+          maxlength="11"
           style="width: 200px;"
         />
         <span class="tips">填写后可用于手机端登陆</span>
@@ -75,13 +75,13 @@
 
       <el-form-item label="售后人员:" prop="aftermarketId">
         <el-select
-          v-model="form.aftermarketId || user.id"
-          clearable
+          v-model="form.aftermarketId ? form.aftermarketId : user.id"
           filterable
           size="small"
           placeholder="请选择"
           class="filter-item"
           style="width: 200px;"
+          @change="change"
         >
           <el-option
             v-for="item in postSaleOption"
@@ -174,7 +174,7 @@ export default {
   mixins: [form(defaultForm)],
   data() {
     var checkLogin = (rule, value, callback) => {
-      let loginReg = /^[0-9a-zA-Z]*$/;
+      let loginReg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/;
       if (value == "") {
         callback(new Error("请输入用户名"));
       } else if (!loginReg.test(value)) {
@@ -219,6 +219,7 @@ export default {
         phone: [{ validator: checkphone, trigger: "blur" }],
         email: [{ validator: checkEmail, trigger: "blur" }],
         userTypeId: [{ required: true, message: "请选择客户类型", trigger: "change" }],
+        
       }
     };
   },
@@ -227,17 +228,14 @@ export default {
       'user'
     ])
   },
-  watch: {
-    'crud.status.cu'(newVal, oldVal) {
-        console.log(newVal, oldVal )
-        this.form.aftermarketId = this.user.id
-    }  
-  },
   created() {
     this.getAllType();
     this.getPostSaleData();
   },
   methods: {
+      change(e) {
+          this.form.aftermarketId = e
+      },
     getAllType() {
       customType
         .getAll()
