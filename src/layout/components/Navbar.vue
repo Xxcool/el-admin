@@ -31,7 +31,7 @@
         <el-dropdown-menu slot="dropdown">
           <span style="display:block;">
             <el-dropdown-item>
-              岗位：{{user.jobs[0].name}}
+              岗位：{{user.jobs.length > 0 ? user.jobs[0].name : '-'}}
             </el-dropdown-item>
           </span>
           <span style="display:block;">
@@ -112,6 +112,9 @@ export default {
       }
     }
   },
+	created() {
+		console.log(this.user)
+	},
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
