@@ -19,16 +19,24 @@ export default {
   },
   edit(data) {
     return request({
-      url: 'api/appUserType',
-      method: 'put',
+      url: "api/appUserType",
+      method: "put",
       data
-    })
+    });
   },
   del(ids) {
     return request({
-      url: 'api/appUserType',
-      method: 'delete',
+      url: "api/appUserType",
+      method: "delete",
       data: ids
-    })
+    });
   },
+  // 获取所有客户类型列表
+  getAllEnabledList(params) {
+    return request({
+      url: "api/appUserType/getAllEnabledList",
+      method: "get",
+      params
+    });
+  }
 };

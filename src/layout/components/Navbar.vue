@@ -26,25 +26,36 @@
         <div class="avatar-wrapper">
           <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar" class="user-avatar">
           <i class="el-icon-caret-bottom" />
+          <span class="userInfo">{{user.username}}</span>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <span style="display:block;" @click="show = true">
+          <span style="display:block;">
             <el-dropdown-item>
+              岗位：{{user.jobs[0].name}}
+            </el-dropdown-item>
+          </span>
+          <span style="display:block;">
+            <el-dropdown-item>
+              角色：{{user.roles[0].name}}
+            </el-dropdown-item>
+          </span>
+          <span style="display:block" @click="show = true">
+            <el-dropdown-item style="color:#317ef3">
               布局设置
             </el-dropdown-item>
           </span>
           <router-link to="/user/center">
-            <el-dropdown-item>
+            <el-dropdown-item style="color:#317ef3">
               个人中心
             </el-dropdown-item>
           </router-link>
           <span style="display:block;" @click="$refs.pass.dialog = true">
-            <el-dropdown-item>
+            <el-dropdown-item style="color:#317ef3">
               修改密码
             </el-dropdown-item>
           </span>
           <span style="display:block;" @click="open">
-            <el-dropdown-item divided>
+            <el-dropdown-item divided style="color:#317ef3">
               退出登录
             </el-dropdown-item>
           </span>
@@ -184,7 +195,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
         position: relative;
 
         .user-avatar {
@@ -192,6 +203,7 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
+          vertical-align: middle;
         }
 
         .el-icon-caret-bottom {
@@ -202,6 +214,9 @@ export default {
           font-size: 12px;
         }
       }
+    .userInfo {
+        font-size: 14px;
+    }
     }
   }
 }

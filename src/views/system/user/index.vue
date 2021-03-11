@@ -292,8 +292,8 @@ export default {
         del: ['admin', 'user:del'],
       },
       enabledTypeOptions: [
-        { key: 'true', display_name: '激活' },
-        { key: 'false', display_name: '锁定' }
+        { key: 'true', display_name: '启用' },
+        { key: 'false', display_name: '停用' }
       ],
       rules: {
 		realName: [

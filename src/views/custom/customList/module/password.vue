@@ -18,7 +18,7 @@
     >
       <div style="margin: 0 0 20px 50px">
         <p>初始密码为：keenon123456</p>
-        <p>客户忘记密码后可手动输入密码</p>
+        <p>客户忘记密码后可手动输入修改密码</p>
       </div>
       <el-form-item label="密码" prop="password">
         <el-input
