@@ -171,9 +171,8 @@ export default {
     background-size: cover;
   }
 	.logo {
-		width: 200px;
 		display: block;
-		margin: 0 auto 10px auto;
+		margin: 0 auto 20px auto;
 	}
   .title {
     margin: 0 auto 30px auto;
@@ -185,7 +184,7 @@ export default {
     border-radius: 6px;
     background: #ffffff;
     width: 385px;
-    padding: 25px 25px 5px 25px;
+    padding: 20px 20px 5px 20px;
     .el-input {
       height: 38px;
       input {
