@@ -186,7 +186,7 @@ export default {
     ...mapGetters(["user"])
   },
   created() {
-    
+    this.crud.msg.add = '新增成功，默认密码：keenon123456'
     console.log(this.dict);
     this.getAllType();
   },

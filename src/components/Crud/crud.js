@@ -552,7 +552,7 @@ function CRUD(options) {
       crud.vms[0].vm.$notify({
         title,
         type,
-        duration: time == 0 && title.indexOf("q123456") != -1 ? time : 2500
+        duration: time == 0 && title.indexOf("123456") != -1 ? time : 2500
       });
     },
     updateProp(name, value) {
