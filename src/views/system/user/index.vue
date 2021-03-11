@@ -34,7 +34,7 @@
               v-model="query.blurry"
               clearable
               size="small"
-              placeholder="输入名称或者邮箱搜索"
+              placeholder="输入用户名或者邮箱搜索"
               style="width: 200px;"
               class="filter-item"
               @keyup.enter.native="crud.toQuery"

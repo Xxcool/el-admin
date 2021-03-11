@@ -193,10 +193,10 @@ export default {
   methods: {
     getAllType() {
       customType
-        .getAll()
+        .getAllEnabledList()
         .then(res => {
           console.log(res);
-          this.customTypeOptions = res.content;
+          this.customTypeOptions = res;
         })
         .catch(err => {
           console.log(err.response.data.message);
