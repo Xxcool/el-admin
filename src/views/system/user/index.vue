@@ -214,7 +214,7 @@
                 :data="scope.row"
                 :permission="permission"
                 :disabled-dle="scope.row.id === user.id || scope.row.username == 'admin'"
-                :disabled-edit="scope.row.id === user.id || scope.row.username == 'admin'"
+                :disabled-edit="scope.row.username == 'admin'"
               />
             </template>
           </el-table-column>
